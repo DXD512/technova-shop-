@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Datos básicos de la página: codificación de caracteres,
+         título de la pestaña y hoja de estilos compartida por toda la web -->
+    <meta charset="UTF-8">
+    <title>Diseño Web</title>
+    <link rel="stylesheet" href="estilos/estilos.css">
+</head>
+<body>
+
+    <!-- Cabecera: nombre de la empresa y menú de navegación -->
+    <header>
+        <h1>TechNova Solutions</h1>
+
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="quienes.html">Quiénes somos</a>
+            <a href="donde.html">Dónde estamos</a>
+            <a href="referencias.html">Referencias</a>
+            <a href="tienda.html">Tienda</a>
+            <a class="nav-carrito" href="carrito.html">Carrito</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+
+            <img id="imagen" src="" alt="" width="400">
+
+            <h2 id="nombre"></h2>
+
+            <p id="descripcion"></p>
+
+            <h3 id="precio"></h3>
+
+            <p id="stock"></p>
+
+            <button class="btn" onclick="agregarCarrito()">
+                Añadir al carrito
+            </button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const supabaseUrl =
+            "https://yzqkaodrkwztmuplzrhl.supabase.co";
+
+        const supabaseKey =
+            "sb_publishable_GwE31TUMHEvUSFwlNEOArA_4DAG9bNy";
+
+        const supabaseClient =
+            supabase.createClient(
+                supabaseUrl,
+                supabaseKey
+            );
+
+        let productoActual = null;
+
+        async function cargarProducto() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            const id = params.get("id");
+
+            const { data, error } =
+                await supabaseClient
+                    .from("productos")
+                    .select("*")
+                    .eq("id", id)
+                    .single();
+
+            if (error) {
+
+                console.error(error);
+
+                return;
+
+            }
+
+            productoActual = data;
+
+            document.getElementById("imagen").src =
+                data.imagen;
+
+            document.getElementById("imagen").alt =
+                data.nombre;
+
+            document.getElementById("nombre").textContent =
+                data.nombre;
+
+            document.getElementById("descripcion").textContent =
+                data.descripcion;
+
+            document.getElementById("precio").textContent =
+                data.precio + " €";
+
+            document.getElementById("stock").textContent =
+                "Stock disponible: " + data.stock;
+
+        }
+
+        function agregarCarrito() {
+
+            let carrito =
+                JSON.parse(localStorage.getItem("carrito")) || [];
+
+            // Añade el producto a la lista.
+            carrito.push({
+                nombre: "Diseño Web Corporativo",
+                precio: 499
+            });
+
+            localStorage.setItem(
+                "carrito",
+                JSON.stringify(carrito)
+            );
+
+            alert("Producto añadido al carrito");
+
+        }
+
+        cargarProducto();
+
+    </script>
+
+</body>
+</html>

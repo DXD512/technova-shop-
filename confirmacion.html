@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Datos básicos de la página: codificación, adaptación a móviles,
+         título de la pestaña y hoja de estilos compartida -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra realizada</title>
+
+    <link rel="stylesheet" href="estilos/estilos.css">
+</head>
+<body>
+
+    <!-- Cabecera: solo el nombre de la empresa -->
+    <header>
+        <h1>TechNova Solutions</h1>
+
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="quienes.html">Quiénes somos</a>
+            <a href="donde.html">Dónde estamos</a>
+            <a href="referencias.html">Referencias</a>
+            <a href="tienda.html">Tienda</a>
+            <a class="nav-carrito" href="carrito.html">Carrito</a>
+        </nav>
+    </header>
+
+    <!-- Contenido principal: agradecimiento y mensajes sobre el pedido -->
+    <div class="container">
+
+        <div class="card">
+
+            <h2>✅ Gracias por tu compra</h2>
+
+            <p>Su pedido se gestionará lo más rápidamente posible. En breve nos pondremos en contacto con usted para concretar los detalles de su pedido. Gracias.</p>
+
+            <p>
+                Hemos recibido tu pedido correctamente.
+            </p>
+
+            <p>
+                En breve nos pondremos en contacto contigo para
+                confirmar los detalles del servicio contratado.
+            </p>
+
+            <br>
+
+            <!-- Botón para volver a la página de inicio -->
+            <a class="btn" href="index.html">
+                Volver al inicio
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Script: vacía el carrito, porque el pedido ya se ha realizado -->
+    <script>
+
+        // Borra el carrito guardado en localStorage.
+        localStorage.removeItem("carrito");
+
+    </script>
+
+</body>
+</html>

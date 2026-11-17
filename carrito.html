@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Datos básicos de la página: codificación, adaptación a móviles,
+         título de la pestaña y hoja de estilos compartida -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+
+    <link rel="stylesheet" href="estilos/estilos.css">
+</head>
+<body>
+
+    <!-- Cabecera: nombre de la empresa y menú de navegación -->
+    <header>
+        <h1>TechNova Solutions</h1>
+
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="quienes.html">Quiénes somos</a>
+            <a href="donde.html">Dónde estamos</a>
+            <a href="referencias.html">Referencias</a>
+            <a href="tienda.html">Tienda</a>
+            <a class="nav-carrito" href="carrito.html">Carrito</a>
+        </nav>
+    </header>
+
+    <!-- Contenido principal: productos del carrito, total y botón para realizar el pedido -->
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Carrito de la compra</h2>
+
+            <!-- Contenedor donde el script escribe los productos del carrito -->
+            <div id="listaProductos"></div>
+
+            <!-- Total de la compra; el script lo calcula y lo escribe aquí -->
+            <h3 id="total">TOTAL: 0 €</h3>
+
+            <br>
+
+            <!-- Botón que lleva a la página de confirmación del pedido -->
+            <a class="btn" href="confirmacion.html">
+                Realizar pedido
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Script: lee el carrito guardado, muestra los productos y calcula el total -->
+    <script>
+
+        // Lee el carrito guardado en el navegador. Si no existe, usa una lista vacía.
+        let carrito =
+            JSON.parse(localStorage.getItem("carrito")) || [];
+
+        // Localiza el contenedor de productos y prepara la variable del total.
+        let lista =
+            document.getElementById("listaProductos");
+
+        let total = 0;
+
+        // Si el carrito está vacío, muestra el aviso y oculta el botón.
+        // Si tiene productos, los muestra uno a uno y suma sus precios.
+        if (carrito.length === 0) {
+
+            lista.innerHTML =
+                '<p class="carrito-vacio">No hay productos en el carrito.</p>';
+            document.querySelector(".btn").style.display = "none";
+
+        } else {
+
+            carrito.forEach(producto => {
+
+                lista.innerHTML += `
+                    <p>
+                        ${producto.nombre}
+                        - ${producto.precio} €
+                    </p>
+                `;
+
+                total += producto.precio;
+
+            });
+
+        }
+
+        // Escribe el total en la página.
+        document.getElementById("total").textContent =
+            "TOTAL: " + total + " €";
+
+    </script>
+
+</body>
+</html>
